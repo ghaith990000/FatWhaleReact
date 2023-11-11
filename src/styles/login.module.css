@@ -84,8 +84,13 @@
     }
 
     .form {
-        width: 90%;
+        width: 100%;
 
+    }
+
+    .wrapper {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .loginImg {
