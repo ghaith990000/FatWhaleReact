@@ -9,6 +9,8 @@ import reportWebVitals from './reportWebVitals';
 import Menus from "./pages/menu";
 import Home from './pages/home';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import AuthDetails from './pages/AuthDetails';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
   {
     path: 'login',
     element: <SignIn />
+  },
+  {
+    path: 'signup',
+    element: <SignUp />
+  },
+  {
+    path: 'auth',
+    element: <AuthDetails />
   }
 ])
 
