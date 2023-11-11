@@ -7,6 +7,7 @@ import Root from './routes/root';
 import ErrorPage from "./error-page";
 import reportWebVitals from './reportWebVitals';
 import Menus from "./pages/menu";
+import Home from './pages/home';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '/',
+        element: <Home />
+      },
       {
         path: 'menus',
         element: <Menus />

@@ -1,0 +1,73 @@
+
+.jumbotron {
+    height: calc(100vh - 90px);
+    background-color: #555;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+.title {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.info {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    width: 60%;
+
+}
+
+.textContainer {
+    position: relative;
+    padding: 50px 50px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-between;
+    height: calc(100vh - 180px);
+    overflow: hidden;
+}
+
+.text {
+    opacity: 0;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.text.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.text.next {
+    transform: translateX(100%);
+}
+
+.dotsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+
+}
+
+.dot.active {
+    background-color: #c83838;
+    width: 15px;
+    height: 15px;
+}
