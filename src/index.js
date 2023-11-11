@@ -8,6 +8,7 @@ import ErrorPage from "./error-page";
 import reportWebVitals from './reportWebVitals';
 import Menus from "./pages/menu";
 import Home from './pages/home';
+import SignIn from './pages/SignIn';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <Menus />
       }
     ]
+  },
+  {
+    path: 'login',
+    element: <SignIn />
   }
 ])
 
