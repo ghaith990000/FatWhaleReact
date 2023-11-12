@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import { useFormik } from 'formik';
+import { useAuth } from '../AuthContext.js';
 import * as Yup from 'yup';
 import {auth} from "./../firebase.js";
 import styles from "./../styles/login.module.css"
@@ -17,26 +18,28 @@ const initialValues = {
 };
 
 const SignIn = () => {
-    const signInUser = (values) => {
-        const {email, password} = values;
-        // e.preventDefault();
-        console.log("Email is " ,email);
-        console.log("Password is " , password);
-        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-            console.log(userCredential);
-        }).catch((error) => {
-            console.log(error);
-        });
-    };
+    const { login } = useAuth();
+    // const signInUser = (values) => {
+    //     const {email, password} = values;
+    //     // e.preventDefault();
+    //     console.log("Email is " ,email);
+    //     console.log("Password is " , password);
+    //     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+    //         console.log(userCredential);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     });
+    // };
 
 
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values, {setSubmitting}) => {
+        onSubmit: async (values, {setSubmitting}) => {
 
-            signInUser(values);
-            console.log('Login data: ', values);
+            // signInUser(values);
+            // console.log('Login data: ', values);
+            await login(values.email, values.password);
             setSubmitting(false);
         },
     });
