@@ -11,20 +11,38 @@ import Menus from "./pages/menu";
 import Home from './pages/home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Dashboard from "./pages/Dashboard";
 import AuthDetails from './pages/AuthDetails';
 import { AuthProvider} from './AuthContext';
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <SignIn/>
+  },
+  {
+    path: "/admin",
+    element: <Dashboard />
+  },
+  {
+    path: "/auth",
+    element: <AuthDetails />
+  }
+])
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <BrowserRouter>
       <AuthProvider>
-        <App />
+        <RouterProvider router={router} />
+        {/* <App /> */}
       </AuthProvider>
-    </BrowserRouter>        
   </React.StrictMode>
 );
 

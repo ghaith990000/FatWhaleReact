@@ -24,6 +24,7 @@ const Navbar = () => {
         <Link to="/login" className={`${styles.linkItem} ${styles.mobileLogin}`}>Login</Link>
         <Link to="/signup" className={`${styles.linkItem} ${styles.mobileLogin}`}>Sign Up</Link>
         <Link to="/auth" className={`${styles.linkItem} ${styles.mobileLogin}`}>Auth Details</Link>
+        <Link to="/admin" className={`${styles.linkItem} ${styles.mobileLogin}`}>Admin</Link>
         {/* Include login link only in desktop */}
       </div>
     <Link to="/login" className={styles.desktopLogin}>Login</Link>
