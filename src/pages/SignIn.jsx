@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import {auth} from "./../firebase.js";
 import styles from "./../styles/login.module.css"
 import threeBurgers from "./../images/three-burgers.jpg";
+// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -19,6 +21,7 @@ const initialValues = {
 
 const SignIn = () => {
     const { login } = useAuth();
+    const navigate = useNavigate();
     // const signInUser = (values) => {
     //     const {email, password} = values;
     //     // e.preventDefault();
@@ -37,17 +40,21 @@ const SignIn = () => {
         validationSchema,
         onSubmit: async (values, {setSubmitting}) => {
 
+            try{
+                await login(values.email, values.password);
+
+                setSubmitting(false);
+                navigate('/admin', {replace: true});
+                console.log("After logging in");
+            }catch(error){
+                console.log('Login failed', error.message);
+            }
             // signInUser(values);
-            // console.log('Login data: ', values);
-            await login(values.email, values.password);
-            setSubmitting(false);
+            // setSubmitting(false);
+            // <Navigate to="/" replace={true} />
+            // console.log("After logging in")
         },
     });
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    
 
     return (
         <div className={styles.formContainer}>

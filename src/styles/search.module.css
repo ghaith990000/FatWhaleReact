@@ -1,0 +1,15 @@
+.searchContainer {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.searchIcon {
+    margin-right: 8px;
+}
+
+.searchInput {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

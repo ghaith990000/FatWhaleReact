@@ -3,46 +3,37 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import {firestore} from './firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Root from "./routes/root";
+import DashboardPage from "./pages/Dashboard";
+import ErrorPage from "./error-page";
+import Home from "./pages/home";
+import Menus from "./pages/menu";
+import SignIn from "./pages/SignIn";
+import SignUp from './pages/SignUp';
+import AuthDetails from './pages/AuthDetails';
+import { AuthProvider, useAuth } from './AuthContext';
+import { Route, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
+import { Dashboard, Login } from '@mui/icons-material';
 
 
-const Dot = ({color}) => {
-  const style = {
-    height: 25,
-    width: 25,
-    margin: "0px 10px",
-    backgroundColor: color,
-    borderRadius: "50%",
-    display: "inline-block",
-  };
-  return <span style={style}></span>
-}
+
 function App() {
+  const {user} = useAuth();
 
-  const [menus, setMenus] = useState([]);
-  console.log(menus);
-  useEffect(() => {
-    const unsub = onSnapshot(collection(firestore, "menus"),(snapshot) => {
-      setMenus(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})));
-    }); 
 
-    return unsub;
-  }, []);
   return (
-    <div className="">
-      <button className='button'>New</button>
-      <ul>
-        {menus.map((menu) => (
-          <li key={menu.id}>
-          <a href='#'>
-            edit <Dot color={menu.value}/> 
-          </a>
-          {menu.name}
-        </li>
-        ))}
-        
-      </ul>
+    <div>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='/login' element={<SignIn/>} />
+        <Route path="/admin" element={<ProtectedRoute user={user}>
+          <DashboardPage />
+        </ProtectedRoute>} />
+      </Routes>
     </div>
-  );
+  )
+  
 }
 
 export default App;

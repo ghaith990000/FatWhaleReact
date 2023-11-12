@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Root from './routes/root';
+import ProtectedRoute from "./routes/ProtectedRoute";
 import ErrorPage from "./error-page";
 import reportWebVitals from './reportWebVitals';
 import Menus from "./pages/menu";
@@ -11,45 +12,19 @@ import Home from './pages/home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import AuthDetails from './pages/AuthDetails';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider} from './AuthContext';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: 'menus',
-        element: <Menus />
-      }
-    ]
-  },
-  {
-    path: 'login',
-    element: <SignIn />
-  },
-  {
-    path: 'signup',
-    element: <SignUp />
-  },
-  {
-    path: 'auth',
-    element: <AuthDetails />
-  }
-])
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>        
   </React.StrictMode>
 );
 
