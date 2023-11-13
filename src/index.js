@@ -14,6 +14,7 @@ import SignUp from './pages/SignUp';
 import Dashboard from "./pages/Dashboard";
 import AuthDetails from './pages/AuthDetails';
 import { AuthProvider} from './AuthContext';
+import Menu, {MenuLoader} from './pages/menu';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Dashboard />
+  },
+  {
+    path: "/menu/:menuId",
+    element: <Menu />,
+    loader: MenuLoader,
   },
   {
     path: "/auth",

@@ -1,5 +1,5 @@
 import {firestore} from "../firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 const collectionName = 'menus';
 
 export const createMenu = async(menuData) => {
@@ -29,6 +29,26 @@ export const getAllMenus = async () => {
         return menus;
     }catch(error){
         console.log(error);
+    }
+}
+
+export const getMenu = async (id) => {
+    try {
+        const docRef = doc(firestore, "menus", id);
+        const docSnap = await getDoc(docRef);
+
+        if(docSnap.exists()){
+            const menuData = {id: docSnap.id, ...docSnap.data()};
+            console.log("Document data: ", docSnap.data());
+            return menuData;
+        }else {
+            console.log("No such document!");
+            return null;
+        }
+
+    }catch(error){
+        console.log(error);
+        return null;
     }
 }
 

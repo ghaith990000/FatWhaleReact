@@ -4,7 +4,7 @@ import { Form } from "react-router-dom";
 import { ref, getStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage"; 
 import { storage } from "../firebase";
 import styles from "./../styles/menuform.module.css";
-const MenuForm = ({ onClose }) => {
+const MenuForm = ({ onClose, onMenuCreated }) => {
     const [menuData, setMenuData] = useState({
         name: '',
         description: '',
@@ -71,6 +71,7 @@ const MenuForm = ({ onClose }) => {
 
                     // Close the model
                     onClose();
+                    onMenuCreated();
 
 
                 }

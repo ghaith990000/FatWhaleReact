@@ -127,6 +127,7 @@ export default function MiniDrawer() {
     const fetchMenus = async () => {
       try{
         const menusData = await getAllMenus();
+
         setMenus(menusData);
         console.log("Menus", menus);
       }catch(error){
@@ -135,7 +136,7 @@ export default function MiniDrawer() {
     };
 
     fetchMenus();
-  }, [menus]);
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -153,6 +154,16 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleMenuCreated = async () => {
+    try {
+      const menusData = await getAllMenus();
+      setMenus(menusData);
+      console.log("Menus updated", menusData);
+    }catch(error){
+      console.log("Error updating menus: ", error);
+    }
+  }
 
     if(!user){
         return <Navigate to="/" replace={true} />
@@ -246,7 +257,7 @@ export default function MiniDrawer() {
                     <CustomButton label="New Menu" onClick={openModal}/>   
         
                     <Modal isOpen={isModalOpen} onClose={closeModal}>
-                        <MenuForm onClose={closeModal} />
+                        <MenuForm onClose={closeModal} onMenuCreated={handleMenuCreated} />
                     </Modal>
 
         
@@ -254,7 +265,7 @@ export default function MiniDrawer() {
                 {menus.length ===  0 ? <NoContent /> : <CardContainer>
                   {
                    menus.map(menu => (
-                    <CustomCard key={menu.id} title={menu.name} description={menu.description} imageUrl={menu.imageUrl} />
+                    <CustomCard key={menu.id} title={menu.name} description={menu.description} menuId={menu.id} imageUrl={menu.imageUrl} />
                   ))  }
 
                 </CardContainer>}
