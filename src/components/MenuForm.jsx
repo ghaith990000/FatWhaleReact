@@ -94,17 +94,17 @@ const MenuForm = ({ onClose }) => {
                 <label htmlFor="description" className={styles.label}>
                     Description
                 </label>
-                <textarea name="description" id="description" onChange={handleChange} placeholder="please a write a description" />
+                <textarea name="description" className={styles.input} id="description" onChange={handleChange} placeholder="please a write a description" />
                 
             </div>
             <div className={styles.formGroup}>
-                <label htmlFor="image" className={styles.label}>
+                <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Image
                 </label>
-                <input type="file" id='image' name='image' onChange={handleFileChange} className={styles.input} />
+                <input type="file" id='image' name='image' onChange={handleFileChange} className={`${styles.input} block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400`} />
                 
             </div>
-            <button type="submit">Create New Menu</button>
+            <button className={styles.button} type="submit">Create New Menu</button>
         </form>
     )
 }

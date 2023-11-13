@@ -1,0 +1,28 @@
+.formGroup {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border: 1px solid #eee;
+    background-color: #e2e2e2;
+    padding: 4px 10px;
+    border-radius: 10px;
+}
+
+.input:focus {
+    outline: none;
+    outline: 2px solid #bfbfbf;
+}
+
+.button {
+    background-color: #61c812;
+    padding: 6px 8px;
+    border-radius: 5px;
+    color: #f3f3f3;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+}

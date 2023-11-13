@@ -18,6 +18,7 @@
     position: relative;
     width: 400px;
     box-shadow: 0 0 10px rgb(0, 0, 0, 0.2);
+    padding-top: 40px;
 }
 
 .closeButton {
