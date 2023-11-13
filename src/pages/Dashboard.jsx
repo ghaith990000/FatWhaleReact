@@ -31,6 +31,8 @@ import Modal from '../components/Modal';
 import {useAuth} from "./../AuthContext";
 import { Navigate } from 'react-router-dom';
 import CardContainer from '../components/CardContainer';
+import {getAllMenus} from "../services/Menu";
+import NoContent from '../components/NoContent';
 
 
 const drawerWidth = 240;
@@ -117,8 +119,23 @@ const customStyles = {
 export default function MiniDrawer() {
     const {user} = useAuth();
   const theme = useTheme();
+  const [menus, setMenus] =  React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [isModalOpen, setModalOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const fetchMenus = async () => {
+      try{
+        const menusData = await getAllMenus();
+        setMenus(menusData);
+        console.log("Menus", menus);
+      }catch(error){
+        console.log('Error fetching menus: ', error);
+      }
+    };
+
+    fetchMenus();
+  }, [menus]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -234,14 +251,14 @@ export default function MiniDrawer() {
 
         
                 </div>
-                <CardContainer>
-                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
-                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
-                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
-                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
-                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+                {menus.length ===  0 ? <NoContent /> : <CardContainer>
+                  {
+                   menus.map(menu => (
+                    <CustomCard key={menu.id} title={menu.name} description={menu.description} imageUrl={menu.imageUrl} />
+                  ))  }
 
-                </CardContainer>
+                </CardContainer>}
+                
 
               </Box>
             </Box>
