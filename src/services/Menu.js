@@ -16,3 +16,19 @@ export const createMenu = async(menuData) => {
     }
 }
 
+export const getAllMenus = async () => {
+    try {
+        const q = query(collection(firestore, "menus"));
+        const querySnapshot = await getDocs(q);
+
+        const menus = [];
+        querySnapshot.forEach((doc) => {
+            menus.push({id: doc.id, ...doc.data()});
+        });
+
+        return menus;
+    }catch(error){
+        console.log(error);
+    }
+}
+
