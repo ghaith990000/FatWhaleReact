@@ -24,11 +24,13 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { red } from '@mui/material/colors';
 import CustomButton from '../components/CustomButton';
+import CustomCard from "../components/CardCustom";
 import MenuForm from "../components/MenuForm";
 import styles from "../styles/dashboard.module.css";
 import Modal from '../components/Modal';
 import {useAuth} from "./../AuthContext";
 import { Navigate } from 'react-router-dom';
+import CardContainer from '../components/CardContainer';
 
 
 const drawerWidth = 240;
@@ -140,6 +142,7 @@ export default function MiniDrawer() {
     }else {
 
         return (
+          
             <Box sx={{ display: 'flex' }}>
               <CssBaseline />
               <AppBar position="fixed" open={open}>
@@ -228,8 +231,18 @@ export default function MiniDrawer() {
                     <Modal isOpen={isModalOpen} onClose={closeModal}>
                         <MenuForm onClose={closeModal} />
                     </Modal>
+
         
                 </div>
+                <CardContainer>
+                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+                  <CustomCard title="Menu1" description="menu 1" imageUrl="https://firebasestorage.googleapis.com/v0/b/fatwhale-7fedd.appspot.com/o/images%2FWhatsApp%20Image%202023-10-26%20at%2012.09.10%20PM.jpeg?alt=media&token=4c4cb26b-812a-4840-8cdc-1623480d0020" />
+
+                </CardContainer>
+
               </Box>
             </Box>
           );

@@ -1,5 +1,5 @@
 import {firestore} from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 const collectionName = 'menus';
 
 export const createMenu = async(menuData) => {
@@ -15,3 +15,4 @@ export const createMenu = async(menuData) => {
         console.log("Error can not create a new menu");
     }
 }
+
