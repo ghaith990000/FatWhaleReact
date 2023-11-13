@@ -24,10 +24,12 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { red } from '@mui/material/colors';
 import CustomButton from '../components/CustomButton';
+import MenuForm from "../components/MenuForm";
 import styles from "../styles/dashboard.module.css";
 import Modal from '../components/Modal';
 import {useAuth} from "./../AuthContext";
 import { Navigate } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -224,8 +226,7 @@ export default function MiniDrawer() {
                     <CustomButton label="New Menu" onClick={openModal}/>   
         
                     <Modal isOpen={isModalOpen} onClose={closeModal}>
-                        <h1>Modal Content</h1>
-                        <p>This is content of the model.</p>
+                        <MenuForm onClose={closeModal} />
                     </Modal>
         
                 </div>
