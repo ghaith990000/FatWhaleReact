@@ -8,6 +8,7 @@ const MenuForm = ({ onClose }) => {
     const [menuData, setMenuData] = useState({
         name: '',
         description: '',
+        image: '',
         items: '',
     });
 
@@ -61,13 +62,11 @@ const MenuForm = ({ onClose }) => {
 
                     setFile(null);
 
-                    setMenuData((prevData) => ({
-                        ...prevData, 
-                        image: downloadURL,
-                    }));
+        
 
-                    console.log("Menu data after upload", menuData);
-                    const menuId = await createMenu(menuData);
+                    // console.log("Menu data after upload", menuData);
+
+                    const menuId = await createMenu({...menuData, image: downloadURL});
                     console.log("Menu created with ID: ", menuId);
 
                     // Close the model

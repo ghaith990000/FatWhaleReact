@@ -4,7 +4,11 @@ const collectionName = 'menus';
 
 export const createMenu = async(menuData) => {
     try {
-        const docRef = await addDoc(collection(firestore, collectionName), menuData);
+        const docRef = await addDoc(collection(firestore, collectionName), {
+            name: menuData.name,
+            description: menuData.description,
+            imageUrl: menuData.image,
+        });
         console.log("Document written with ID: ", docRef.id);
         return docRef.id;
     } catch(error){
