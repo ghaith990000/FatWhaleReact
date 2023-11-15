@@ -1,6 +1,11 @@
 import { useState } from "react"; 
 import styles from "../../styles/menuform.module.css";
-const MealForm = () => {
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {v4 as uuidv4} from "uuid";
+import {storage} from "../../firebase";
+import { createMeal } from "../../services/Meal";
+
+const MealForm = ({categories, menuId, onClose, onMealCreated}) => {
     const [mealData, setMealData] = useState({
         name: '',
         description: '',
@@ -18,6 +23,10 @@ const MealForm = () => {
         }));
     };
 
+    const generateUniqueIdentifier = () => {
+        return uuidv4();
+    }
+
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
@@ -25,6 +34,56 @@ const MealForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if(!file){
+            return;
+        }
+
+        try {
+            const uniqueIdentifier = generateUniqueIdentifier();
+            const storageRef = ref(storage, `meals/${uniqueIdentifier}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                },
+                (error) => {
+
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log("Meal image saved successfully at: ", downloadURL);
+
+                    setFile(null);
+
+                    // Get selected category IDs
+                    const selectedCategories = categories
+                    .filter((category) => document.getElementById(category.id).checked)
+                    .map((category) => category.id);
+
+
+                    
+                    await createMeal(menuId, {...mealData, image: downloadURL}, selectedCategories);
+
+                    setMealData({
+                        name: '',
+                        description: '',
+                        image: '',
+                        price: '',
+                    });
+
+                    onClose();
+                    onMealCreated();
+                }
+            );
+
+            
+
+        }catch(error){
+            console.log(error);
+        }
 
         console.log("meal Submit method called");
     }
@@ -35,6 +94,13 @@ const MealForm = () => {
                     Name
                 </label>
                 <input type="text" id='name' name='name' className={styles.input} placeholder='Enter meal name' onChange={handleChange} />
+                
+            </div>
+            <div className={styles.formGroup}>
+                <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">
+                    Price
+                </label>
+                <input type="number" id='price' name='price' className={styles.input} placeholder='Enter price in BHD' onChange={handleChange} />
                 
             </div>
             <div className={styles.formGroup}>
@@ -53,14 +119,20 @@ const MealForm = () => {
             </div>
             <div className={styles.categories}>
                 <h3 className="block mb-2 text-sm font-medium text-gray-900">Categories</h3>
-                <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                    <input id="bordered-checkbox-1" type="checkbox" value="" name="bordered-checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                    <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default radio</label>
+                <div className="flex flex-wrap justify-between gap-1">
+                    {categories.map((category, index) => (
+                        <div class="flex w-[178px] items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                            <input id={category.id} type="checkbox" value={category.id} name={category.name} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <label for={category.id} class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{category.name}</label>
+                        </div>
+                        // <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                        //     <input id={category.id} type="checkbox" value={category.id} name={category.name} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        //     <label for={category.id} class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{category.name}</label>
+                        // </div>
+                    ))}
+
                 </div>
-                <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                    <input id="bordered-checkbox-2" type="checkbox" value="" name="bordered-checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                    <label for="bordered-checkbox-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
-                </div>
+                
             </div>
             <button className={styles.button} type="submit">Create New Meal</button>
         </form>

@@ -5,36 +5,36 @@ import CategoryCard from "./CategoryCard";
 import CategoryForm from "./CategoryForm";
 import { getAllCategoriesFromMenus } from "../../services/Category";
 import NoContent from "../NoContent";
-const CategorySection = ({menuId}) => {
+const CategorySection = ({menuId, categories, onCategoryCreated}) => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
 
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const menuCategories = await getAllCategoriesFromMenus(menuId);
-                setCategories(menuCategories);
-            }catch(error){
-                console.error("Error fetching categories: ", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchCategories = async () => {
+    //         try {
+    //             const menuCategories = await getAllCategoriesFromMenus(menuId);
+    //             setCategories(menuCategories);
+    //         }catch(error){
+    //             console.error("Error fetching categories: ", error);
+    //         }
+    //     };
 
-        fetchCategories();
-        console.log("Categories Info: ", categories);
-    }, []);
+    //     fetchCategories();
+    //     console.log("Categories Info: ", categories);
+    // }, []);
 
-    const handleCategoryCreated = async () => {
-        try{
-            const categories = await getAllCategoriesFromMenus(menuId);
-            setCategories(categories);
-            console.log("Categories updated");
+    // const handleCategoryCreated = async () => {
+    //     try{
+    //         const categories = await getAllCategoriesFromMenus(menuId);
+    //         setCategories(categories);
+    //         console.log("Categories updated");
     
-        }catch(error){
-            console.log("Error happend", error);
-        }
+    //     }catch(error){
+    //         console.log("Error happend", error);
+    //     }
         
-    }
+    // }
     const openModal = () => {
         setModalOpen(true);
       };
@@ -47,7 +47,7 @@ const CategorySection = ({menuId}) => {
         <h2 className={styles.sectionHeader}>Category</h2>
         <button className={styles.addBtn} onClick={openModal}>Add New Category</button>
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <CategoryForm menuId={menuId} onClose={closeModal} onCategoryCreated={handleCategoryCreated} />
+          <CategoryForm menuId={menuId} onClose={closeModal} onCategoryCreated={onCategoryCreated} />
         </Modal>
         {categories.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-2 mx-16">

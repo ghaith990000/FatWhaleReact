@@ -1,17 +1,17 @@
 import styles from "../../styles/mealcard.module.css";
-const MealCard = () =>{
+const MealCard = ({name, description, price, image}) =>{
     return (
         <div className={styles.box}>
             <div className={styles.imgBox}>
-                <img src="https://themewagon.github.io/feane/images/f1.png" alt="" />
+                <img src={image} alt="" />
             </div>
             <div className={styles.detailBox}>
-                <h5>Delicious Pizza</h5>
+                <h5>{name}</h5>
                 <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                    {description}
                 </p>
                 <div className="options">
-                    <h6>20 BHD</h6>
+                    <h6>{price} BHD</h6>
                 </div>
             </div>
             
