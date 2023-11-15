@@ -1,0 +1,26 @@
+.meals {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.sectionHeader {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #000;
+}
+
+.addBtn {
+    align-self: end;
+    margin-right: 65px;
+    background-color: #e3b315;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 10px;
+}
+
