@@ -10,11 +10,11 @@ import {getMenu} from "../services/Menu";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import MealCard from '../components/MealCard';
+import MealCard from '../components/meal/MealCard';
 import styles from "../styles/menudetail.module.css";
 import Modal from '../components/Modal';
-import MealForm from '../components/MealForm';
-import CategorySection from '../components/CategorySection';
+import MealForm from '../components/meal/MealForm';
+import CategorySection from '../components/category/CategorySection';
 
 export const MenuLoader = async ({params}) => {
   const menu = await getMenu(params.menuId);

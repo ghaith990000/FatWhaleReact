@@ -1,4 +1,4 @@
-import styles from "../styles/mealcard.module.css";
+import styles from "../../styles/mealcard.module.css";
 const MealCard = () =>{
     return (
         <div className={styles.box}>

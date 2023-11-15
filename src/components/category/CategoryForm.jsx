@@ -1,9 +1,10 @@
 import { useState } from "react";
-import styles from "../styles/menuform.module.css";
-import { storage } from "../firebase";
+// import styles from "../../styles/menuform.module.css";
+import styles from "../../styles/menuform.module.css";
+import { storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import {v4 as uuidv4} from "uuid";
-import {addCategoryToMenu} from "../services/Category"
+import {addCategoryToMenu} from "../../services/Category"
 const CategoryForm = ({menuId, onClose, onCategoryCreated}) => {
     const [categoryData, setCategoryData] = useState({
         name: '',
@@ -101,6 +102,7 @@ const CategoryForm = ({menuId, onClose, onCategoryCreated}) => {
                 <input type="file" id='image' name='image' onChange={handleFileChange} className={`${styles.input} block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400`} />
                 
             </div>
+            
             <button className={styles.button} type="submit">Create New Category</button>
         </form>
     )

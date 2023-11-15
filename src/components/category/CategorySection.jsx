@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import Modal from "./Modal";
-import styles from "../styles/menudetail.module.css"
+import Modal from "../Modal";
+import styles from "../../styles/menudetail.module.css";
 import CategoryCard from "./CategoryCard";
 import CategoryForm from "./CategoryForm";
-import { getAllCategoriesFromMenus } from "../services/Category";
-import NoContent from "./NoContent";
+import { getAllCategoriesFromMenus } from "../../services/Category";
+import NoContent from "../NoContent";
 const CategorySection = ({menuId}) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [categories, setCategories] = useState([]);
