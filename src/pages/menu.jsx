@@ -63,13 +63,13 @@ const Menu = () => {
           <div className="absolute top-0 left-0 h-full w-full bg-black opacity-60 z-5"></div>
       </section>
       
-      <CategorySection />
+      <CategorySection menuId={menu.id}/>
 
       <div className={styles.meals}>
         <h2 className={styles.sectionHeader}>Meals</h2>
         <button className={styles.addBtn} onClick={openModal}>Add New Meal</button>
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <MealForm />
+          <MealForm onClose={closeModal}/>
         </Modal>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-2 mx-16">
 

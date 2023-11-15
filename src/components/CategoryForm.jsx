@@ -1,13 +1,21 @@
 import { useState } from "react";
 import styles from "../styles/menuform.module.css";
-const CategoryForm = () => {
+import { storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {v4 as uuidv4} from "uuid";
+import {addCategoryToMenu} from "../services/Category"
+const CategoryForm = ({menuId, onClose, onCategoryCreated}) => {
     const [categoryData, setCategoryData] = useState({
         name: '',
         description: '',
-        image: '',
+        // image: '',
     });
 
     const [file, setFile] = useState(null);
+
+    const generateUniqueIdentifier = () => {
+        return uuidv4();
+    }
     
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -24,6 +32,49 @@ const CategoryForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if(!file){
+            console.log("Please select a file.");
+            return;
+        }
+
+        try {
+            console.log("Data stored", categoryData);
+            // Upload images to firebase storage
+            const uniqueIdentifier = generateUniqueIdentifier();
+            const storageRef = ref(storage, `categories/${uniqueIdentifier}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            // Listen for state changes, errors, and completion of the upload
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    // Track upload progress if needed
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + '% done');
+                },
+                (error) => {
+                    console.error('Error uploading file: ', error);
+                },
+                async () => {
+                    // Upload completed successfully, get the download URL
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log("File is available at", downloadURL);
+
+                    setFile(null);
+                    addCategoryToMenu(menuId, {...categoryData, image: downloadURL });
+
+                    onClose();
+                    onCategoryCreated();
+                    
+
+                }
+
+            )
+            
+        }catch(error){
+            console.log("There is an error", error);
+        }
 
         console.log("Category Submit method called");
     }

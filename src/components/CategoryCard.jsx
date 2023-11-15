@@ -1,11 +1,11 @@
 import styles from "../styles/categorycard.module.css";
-const CategoryCard = () => {
+const CategoryCard = ({name, image}) => {
     return (
         <div className={styles.box}>
             <div className={styles.imgBox}>
-                <img src="https://themewagon.github.io/feane/images/f2.png" alt="" />
+                <img src={image} alt="" />
             </div>
-            <h2 className={styles.title}>Burger</h2>
+            <h2 className={styles.title}>{name}</h2>
         </div>
     )
 }

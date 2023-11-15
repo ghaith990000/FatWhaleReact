@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { createMenu } from './../services/Menu';
 import { Form } from "react-router-dom";
-import { ref, getStorage, uploadBytesResumable, getDownloadURL } from "firebase/storage"; 
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; 
 import { storage } from "../firebase";
 import styles from "./../styles/menuform.module.css";
 const MenuForm = ({ onClose, onMenuCreated }) => {
@@ -57,7 +57,7 @@ const MenuForm = ({ onClose, onMenuCreated }) => {
                 async () => {
                     // Upload completed successfully, get the download URL
                     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    console.log("File is available at", downloadURL);
+                    console.log("Category image uploaded at", downloadURL);
 
 
                     setFile(null);
