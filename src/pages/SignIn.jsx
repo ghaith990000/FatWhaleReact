@@ -44,7 +44,7 @@ const SignIn = () => {
                 await login(values.email, values.password);
 
                 setSubmitting(false);
-                navigate('/admin', {replace: true});
+                navigate('/admin/dashboard', {replace: true});
                 console.log("After logging in");
             }catch(error){
                 console.log('Login failed', error.message);
