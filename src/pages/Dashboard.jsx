@@ -117,11 +117,13 @@ const customStyles = {
 
 
 export default function MiniDrawer() {
-    const {user} = useAuth();
+  const {user} = useAuth();
   const theme = useTheme();
   const [menus, setMenus] =  React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [isModalOpen, setModalOpen] = React.useState(false);
+
+  console.log(user);
 
   React.useEffect(() => {
     const fetchMenus = async () => {

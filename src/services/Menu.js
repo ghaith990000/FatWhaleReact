@@ -28,7 +28,7 @@ export const getAllMenus = async () => {
 
         return menus;
     }catch(error){
-        console.log(error);
+        console.log("Error in Menu Ghaith", error);
     }
 }
 
